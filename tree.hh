@@ -4,10 +4,10 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
-#include <fstream>  // for ofstream
-#include <memory>
+#include <fstream> // for ofstream
 #include <limits.h>
-#include <utility>  // for pair
+#include <memory>
+#include <utility> // for pair
 
 #include "node.hh"
 
@@ -15,8 +15,6 @@ class Tree {
   Node root;
 
 public:
-
-
 };
 
 #endif

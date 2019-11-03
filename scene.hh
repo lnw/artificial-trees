@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
-#include <fstream>  // for ofstream
+#include <fstream> // for ofstream
 #include <unordered_map>
-#include <utility>  // for pair
+#include <utility> // for pair
 
 #include "tree.hh"
 
@@ -22,10 +22,9 @@ class scene {
   std::vector<double> h_offsets;
 
 public:
-  void add_tree(){
+  void add_tree() {
     trees.push_back(Tree());
   }
-
 };
 
 #endif
