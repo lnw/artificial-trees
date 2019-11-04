@@ -9,9 +9,9 @@ GD_INCLUDES_L=-lgd -lpng -lz -lfreetype -lm
 #BOOST_INCLUDES_L=-lboost_regex -lboost_program_options
 PYTHON_INCLUDES_C=-I/usr/include/python3.7m
 
-HEADERS=auxiliary.hh canvas.hh
+HEADERS=auxiliary.hh canvas.hh scene.hh
 
-OBJECTS=geometry3.o canvas.o
+OBJECTS=geometry3.o canvas.o scene.o
 OBJECTS_STANDALONE=trees.o
 OBJECTS_LIB=interface.o
 
@@ -47,5 +47,7 @@ clean:
 distclean: clean
 	rm -f pano pano-debug test a.out libartpano.so build/*o
 
-
+.PHONY: format
+format:
+	clang-format-9 -i *hh *cc
 

@@ -14,6 +14,12 @@
 using namespace std;
 
 
+enum class DIRECTION : unsigned { NORTH = 0,
+                                  EAST,
+                                  SOUTH,
+                                  WEST };
+
+
 class canvas {
 public:
   unsigned width, height; // [pixels]
@@ -76,6 +82,9 @@ public:
   void render_test();
 
   void bucket_fill(const int r, const int g, const int b);
+  void draw_tick(int x, int perp_offset, int tick_length, DIRECTION dir, string str1);
+  void draw_ticks(const scene& S, bool mirror);
+  void vertical_separator();
 };
 
 #endif
