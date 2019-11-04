@@ -69,15 +69,25 @@ void canvas::vertical_separator() {
 
 
 void canvas::draw_ticks(const scene& S, bool mirror) {
-  const double x_min = S.get_x_min();
-  const double x_max = S.get_x_max();
-  const double y_min = S.get_y_min();
-  const double y_max = S.get_y_max();
-  const double z_min = S.get_z_min();
-  const double z_max = S.get_z_max();
-  const double delta_x = x_max - x_min;
-  const double delta_y = y_max - y_min;
-  const double delta_z = z_max - z_min;
+  const double margin_fac = 0.05;
+  double x_min = S.get_x_min(),
+         x_max = S.get_x_max(),
+         y_min = S.get_y_min(),
+         y_max = S.get_y_max(),
+         z_min = S.get_z_min(),
+         z_max = S.get_z_max();
+  double delta_x = x_max - x_min,
+         delta_y = y_max - y_min,
+         delta_z = z_max - z_min;
+  x_min -= margin_fac * delta_x;
+  x_max += margin_fac * delta_x;
+  y_min -= margin_fac * delta_y;
+  y_max += margin_fac * delta_y;
+  z_min -= margin_fac * delta_z;
+  z_max += margin_fac * delta_z;
+  delta_x *= (1.0 + 2.0 * margin_fac);
+  delta_y *= (1.0 + 2.0 * margin_fac);
+  delta_z *= (1.0 + 2.0 * margin_fac);
 
   const double scale = 4.0;
   // cout << "delta: " << delta_x << ", " << delta_y << ", " << delta_z << endl;
@@ -89,9 +99,9 @@ void canvas::draw_ticks(const scene& S, bool mirror) {
   const double y_step = pow(scale, floor(log(delta_y) / log(scale) - 1)); // [m]
   const double z_step = pow(scale, floor(log(delta_z) / log(scale) - 1)); // [m]
 
-  const double pixels_per_m_x = (width / 2) / (delta_x /* * 1.2 */); // [px / m], and leave some margin
-  const double pixels_per_m_y = (height) / (delta_y /* * 1.2 */);    // [px / m], and leave some margin
-  const double pixels_per_m_z = (height) / (delta_z /* * 1.2 */);    // [px / m], and leave some margin
+  const double pixels_per_m_x = (width / 2) / (delta_x); // [px / m]
+  const double pixels_per_m_y = (height) / (delta_y);    // [px / m]
+  const double pixels_per_m_z = (height) / (delta_z);    // [px / m]
 
   const int shift_x = x_min * pixels_per_m_x; // [px]
   const int shift_y = y_min * pixels_per_m_y; // [px]
@@ -118,9 +128,9 @@ void canvas::draw_ticks(const scene& S, bool mirror) {
 
   for (int z = int(ceil(z_min / z_step)); z <= int(z_max / z_step); z++) {
     int z_tick = z * pixels_per_m_z * z_step - shift_z;
-    draw_tick(z_tick, 0, tick_length, DIRECTION::EAST, to_string_with_precision(z * z_step, 2));
+    draw_tick(height - z_tick, 0, tick_length, DIRECTION::EAST, to_string_with_precision(z * z_step, 2));
     if (mirror) {
-      draw_tick(z_tick, width / 2, tick_length, DIRECTION::WEST, to_string_with_precision(z * z_step, 2));
+      draw_tick(height - z_tick, width / 2, tick_length, DIRECTION::WEST, to_string_with_precision(z * z_step, 2));
     }
   }
 }

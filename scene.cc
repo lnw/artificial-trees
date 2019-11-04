@@ -12,7 +12,7 @@ void scene::update_bounds() {
   y_min = -1.0;
   y_max = 1.0;
   z_min = 0.0;
-  z_max = 1.0;
+  z_max = 3.0;
 
   assert(x_max > x_min);
   assert(y_max > y_min);
